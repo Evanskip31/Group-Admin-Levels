@@ -1,13 +1,157 @@
-# import json
-# data = json.loads('H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/Andorra/gadm36_AND_0.geojson')
-# data['features'][0]['geometry'] 
-# import geopandas as gpd
-# import pandas as pd
-# earthquake = pd.read_json('H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/Andorra/gadm36_AND_0.geojson')
-# print(earthquake.head())
-
+# import the required libraries
+import os
 import json
-with open('H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/Australia/gadm36_AUS_2.geojson') as f:
-    data = json.load(f)
-for feature in data['features']:
-    print(feature['properties'])
+from collections import defaultdict
+
+# parsing through the root folder
+#path to the directory that has our zipped files
+path = 'H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/'
+
+# Change directory
+os.chdir(path)
+z = 1
+# Iterating through all the files in our folder
+# create the major folder here
+save_path = 'H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/'
+
+for file in os.listdir():
+    # create a sub-folder for geojson files
+    sub_path = os.path.join(save_path, file)
+    sub_path = sub_path + '/'
+    for items in os.listdir(sub_path):
+        path_to_geojson = os.path.join(sub_path, items)
+    path, dirs, files = next(os.walk(sub_path))
+    file_count = len(files)
+    # this is where the reading happens:
+    # load the json file
+    with open(path_to_geojson) as f:
+        data = json.load(f)
+        
+    n = ''
+    country_group = {}
+    
+    # filter
+    if file_count == 1:
+        print(file, '1 file was found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+                
+    elif file_count == 2:
+        print(file, '2 files were found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+    elif file_count == 3:
+        print(file, '3 files were found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+    elif file_count == 4:
+        print(file, '4 files were found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+    elif file_count == 5:
+        print(file, '5 files were found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+    elif file_count == 6:
+        print(file, '6 files were found')
+        for item in data['features']:
+            if n:
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+            else:
+                n = item['properties']['NAME_0']
+                country_group[n] = defaultdict(list)
+                b = item['properties']['NAME_1']
+                c = item['properties']['NAME_2']
+                d = item['properties']['NAME_3']
+                country_group[n][b].append(c)
+                country_group[n][b][c].append(d)
+
+
+# Reference Code
+n = ''
+country_group = {}
+for item in data['features']:
+    if n:
+        b = item['properties']['NAME_1']
+        c = item['properties']['NAME_2']
+        d = item['properties']['NAME_3']
+        country_group[n][b].append({'Adm_2':c,'Adm_3':d})
+        #country_group[n]['Adm_3'].append(d)
+    else:
+        n = item['properties']['NAME_0']
+        country_group[n] = defaultdict(list)
+        b = item['properties']['NAME_1']
+        c = item['properties']['NAME_2']
+        d = item['properties']['NAME_3']
+        #country_group[n][b].append(c)
+        country_group[n][b].append({'Adm_2':c,'Adm_3':d})
+        #country_group[n]['Adm_3'].append(d)
