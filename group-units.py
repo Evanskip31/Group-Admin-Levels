@@ -20,8 +20,115 @@ for file in os.listdir():
     sub_path = sub_path + '/'
     for items in os.listdir(sub_path):
         subb_path, sub_dirs, sub_files = next(os.walk(sub_path))
+        
+        # when the number of files present in the file path is 3
         if len(sub_files) == 3:
-            
+            province_sub_1 = sub_files[1]
+            district_sub_2 = sub_files[2]
+            province_path = os.path.join(sub_path, province_sub_1)
+            with open(province_path) as f:
+                data = json.load(f)
+            type_adm_1_list = []
+            for m in data['features']:
+                type_adm_1 = m['properties']['ENGTYPE_1']
+                if type_adm_1 not in type_adm_1_list:
+                    type_adm_1_list.append(type_adm_1)
+        
+        # when the number of files present in the file path is 4
+        elif len(sub_files) == 4:
+            province_sub_1 = sub_files[1]
+            district_sub_2 = sub_files[2]
+            sub_county_3 = sub_files[3]
+            province_path = os.path.join(sub_path, province_sub_1)
+            district_path = os.path.join(sub_path, district_sub_2)
+            temp_list = [province_path, district_path]
+            for i in temp_list:
+                with open(i) as f:
+                    data = json.load(f)
+                type_adm_1_list = []
+                type_adm_2_list = []
+                if i == province_path:
+                    for m in data['features']:
+                        type_adm_1 = m['properties']['ENGTYPE_1']
+                        if type_adm_1 not in type_adm_1_list:
+                            type_adm_1_list.append(type_adm_1)
+                elif i == district_path:
+                    for m in data['features']:
+                        type_adm_2 = m['properties']['ENGTYPE_2']
+                        if type_adm_2 not in type_adm_2_list:
+                            type_adm_2_list.append(type_adm_2) 
+                            
+        # when the number of files present in the file path is 5
+        elif len(sub_files) == 5:
+            province_sub_1 = sub_files[1]
+            district_sub_2 = sub_files[2]
+            sub_county_3 = sub_files[3]
+            sub_ward_4 = sub_files[4]
+            province_path = os.path.join(sub_path, province_sub_1)
+            district_path = os.path.join(sub_path, district_sub_2)
+            sub_county_path = os.path.join(sub_path,sub_county_3)
+            temp_list = [province_path, district_path, sub_county_path]
+            for i in temp_list:
+                with open(i) as f:
+                    data = json.load(f)
+                type_adm_1_list = []
+                type_adm_2_list = []
+                type_adm_3_list = []
+                if i == province_path:
+                    for m in data['features']:
+                        type_adm_1 = m['properties']['ENGTYPE_1']
+                        if type_adm_1 not in type_adm_1_list:
+                            type_adm_1_list.append(type_adm_1)
+                elif i == district_path:
+                    for m in data['features']:
+                        type_adm_2 = m['properties']['ENGTYPE_2']
+                        if type_adm_2 not in type_adm_2_list:
+                            type_adm_2_list.append(type_adm_2) 
+                elif i == sub_county_path:
+                    for m in data['features']:
+                        type_adm_3 = m['properties']['ENGTYPE_3']
+                        if type_adm_3 not in type_adm_3_list:
+                            type_adm_3_list.append(type_adm_3) 
+                            
+        # when the number of files present in the file path is 6
+        elif len(sub_files) == 6:
+            province_sub_1 = sub_files[1]
+            district_sub_2 = sub_files[2]
+            sub_county_3 = sub_files[3]
+            sub_ward_4 = sub_files[4]
+            location_sub_5 = sub_files[5]
+            province_path = os.path.join(sub_path, province_sub_1)
+            district_path = os.path.join(sub_path, district_sub_2)
+            sub_county_path = os.path.join(sub_path,sub_county_3)
+            location_sub_path = os.path.join(sub_path, sub_ward_4)
+            temp_list = [province_path, district_path, sub_county_path, location_sub_path]
+            for i in temp_list:
+                with open(i) as f:
+                    data = json.load(f)
+                type_adm_1_list = []
+                type_adm_2_list = []
+                type_adm_3_list = []
+                type_adm_4_list = []
+                if i == province_path:
+                    for m in data['features']:
+                        type_adm_1 = m['properties']['ENGTYPE_1']
+                        if type_adm_1 not in type_adm_1_list:
+                            type_adm_1_list.append(type_adm_1)
+                elif i == district_path:
+                    for m in data['features']:
+                        type_adm_2 = m['properties']['ENGTYPE_2']
+                        if type_adm_2 not in type_adm_2_list:
+                            type_adm_2_list.append(type_adm_2)   
+                elif i == sub_county_path:
+                    for m in data['features']:
+                        type_adm_3 = m['properties']['ENGTYPE_3']
+                        if type_adm_3 not in type_adm_3_list:
+                            type_adm_3_list.append(type_adm_3) 
+                elif i == location_sub_path:
+                    for m in data['features']:
+                        type_adm_4 = m['properties']['ENGTYPE_4']
+                        if type_adm_4 not in type_adm_4_list:
+                            type_adm_4_list.append(type_adm_4) 
         path_to_geojson = os.path.join(sub_path, items)
         # we can use here to parse previous files to get type of admin level
         
@@ -207,9 +314,9 @@ for file in os.listdir():
 #             for m in data['features']:
 #                 type_adm_1 = m['properties']['ENGTYPE_1']
 #                 if type_adm_1 not in type_adm_1_list:
-    #                 type_adm_1_list.append(type_adm_1)
+#                     type_adm_1_list.append(type_adm_1)
 #         elif i == district_path:
 #             for m in data['features']:
 #                 type_adm_2 = m['properties']['ENGTYPE_2']
 #                 if type_adm_2 not in type_adm_2_list:
-    #                 type_adm_2_list.append(type_adm_2)  
+#                     type_adm_2_list.append(type_adm_2)  
