@@ -26,6 +26,7 @@ for file in os.listdir():
             province_sub_1 = sub_files[1]
             district_sub_2 = sub_files[2]
             province_path = os.path.join(sub_path, province_sub_1)
+            path_to_geojson = os.path.join(sub_path, district_sub_2)
             with open(province_path) as f:
                 data = json.load(f)
             type_adm_1_list = []
@@ -33,6 +34,7 @@ for file in os.listdir():
                 type_adm_1 = m['properties']['ENGTYPE_1']
                 if type_adm_1 not in type_adm_1_list:
                     type_adm_1_list.append(type_adm_1)
+            break
         
         # when the number of files present in the file path is 4
         elif len(sub_files) == 4:
@@ -41,12 +43,14 @@ for file in os.listdir():
             sub_county_3 = sub_files[3]
             province_path = os.path.join(sub_path, province_sub_1)
             district_path = os.path.join(sub_path, district_sub_2)
+            path_to_geojson = os.path.join(sub_path, sub_county_3)
             temp_list = [province_path, district_path]
+            type_adm_1_list = []
+            type_adm_2_list = []
             for i in temp_list:
                 with open(i) as f:
                     data = json.load(f)
-                type_adm_1_list = []
-                type_adm_2_list = []
+                
                 if i == province_path:
                     for m in data['features']:
                         type_adm_1 = m['properties']['ENGTYPE_1']
@@ -56,7 +60,9 @@ for file in os.listdir():
                     for m in data['features']:
                         type_adm_2 = m['properties']['ENGTYPE_2']
                         if type_adm_2 not in type_adm_2_list:
-                            type_adm_2_list.append(type_adm_2) 
+                            type_adm_2_list.append
+                            (type_adm_2) 
+            break
                             
         # when the number of files present in the file path is 5
         elif len(sub_files) == 5:
@@ -67,6 +73,7 @@ for file in os.listdir():
             province_path = os.path.join(sub_path, province_sub_1)
             district_path = os.path.join(sub_path, district_sub_2)
             sub_county_path = os.path.join(sub_path,sub_county_3)
+            path_to_geojson = os.path.join(sub_path, sub_ward_4)
             temp_list = [province_path, district_path, sub_county_path]
             for i in temp_list:
                 with open(i) as f:
@@ -89,7 +96,8 @@ for file in os.listdir():
                         type_adm_3 = m['properties']['ENGTYPE_3']
                         if type_adm_3 not in type_adm_3_list:
                             type_adm_3_list.append(type_adm_3) 
-                            
+            break
+                
         # when the number of files present in the file path is 6
         elif len(sub_files) == 6:
             province_sub_1 = sub_files[1]
@@ -101,6 +109,7 @@ for file in os.listdir():
             district_path = os.path.join(sub_path, district_sub_2)
             sub_county_path = os.path.join(sub_path,sub_county_3)
             location_sub_path = os.path.join(sub_path, sub_ward_4)
+            path_to_geojson = os.path.join(sub_path, location_sub_5)
             temp_list = [province_path, district_path, sub_county_path, location_sub_path]
             for i in temp_list:
                 with open(i) as f:
@@ -129,7 +138,17 @@ for file in os.listdir():
                         type_adm_4 = m['properties']['ENGTYPE_4']
                         if type_adm_4 not in type_adm_4_list:
                             type_adm_4_list.append(type_adm_4) 
-        path_to_geojson = os.path.join(sub_path, items)
+            break
+        
+        elif len(sub_files) == 2:
+            province_sub_1 = sub_files[1]
+            path_to_geojson = os.path.join(sub_path, province_sub_1)
+            break
+        
+        else:
+            path_to_geojson = os.path.join(sub_path, items)
+            break
+        
         # we can use here to parse previous files to get type of admin level
         
     path, dirs, files = next(os.walk(sub_path))
@@ -184,6 +203,7 @@ for file in os.listdir():
         country_name = file
         lowest_admin_level = file_count - 1
         
+        
     
     elif file_count == 3:
         print(file, '3 files were found')
@@ -203,7 +223,7 @@ for file in os.listdir():
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c})
         admin_level1_units = len(country_group[n].keys())
-        #admin_level1_names = item['properties']['ENGTYPE_1']
+        admin_level1_names = 
         country_name = file
         lowest_admin_level = file_count - 1
         # admin_level2_units 
