@@ -15,6 +15,7 @@ z = 1
 save_path = 'H:/WORK/Upwork/Project 7 - Python School Data Analysis/Countries Admin Levels/GADM-Countries/Extracted/Admin Data GeoJSON/'
 country_group = {}
 for file in os.listdir():
+    admin_level1_names, admin_level2_names, admin_level3_names, admin_level4_names,admin_level5_names = '', '', '', '', ''
     # create a sub-folder for geojson files
     sub_path = os.path.join(save_path, file)
     sub_path = sub_path + '/'
@@ -49,8 +50,7 @@ for file in os.listdir():
             type_adm_2_list = []
             for i in temp_list:
                 with open(i) as f:
-                    data = json.load(f)
-                
+                    data = json.load(f)  
                 if i == province_path:
                     for m in data['features']:
                         type_adm_1 = m['properties']['ENGTYPE_1']
@@ -60,8 +60,7 @@ for file in os.listdir():
                     for m in data['features']:
                         type_adm_2 = m['properties']['ENGTYPE_2']
                         if type_adm_2 not in type_adm_2_list:
-                            type_adm_2_list.append
-                            (type_adm_2) 
+                            type_adm_2_list.append(type_adm_2)
             break
                             
         # when the number of files present in the file path is 5
@@ -75,12 +74,12 @@ for file in os.listdir():
             sub_county_path = os.path.join(sub_path,sub_county_3)
             path_to_geojson = os.path.join(sub_path, sub_ward_4)
             temp_list = [province_path, district_path, sub_county_path]
+            type_adm_1_list = []
+            type_adm_2_list = []
+            type_adm_3_list = []
             for i in temp_list:
                 with open(i) as f:
                     data = json.load(f)
-                type_adm_1_list = []
-                type_adm_2_list = []
-                type_adm_3_list = []
                 if i == province_path:
                     for m in data['features']:
                         type_adm_1 = m['properties']['ENGTYPE_1']
@@ -111,13 +110,13 @@ for file in os.listdir():
             location_sub_path = os.path.join(sub_path, sub_ward_4)
             path_to_geojson = os.path.join(sub_path, location_sub_5)
             temp_list = [province_path, district_path, sub_county_path, location_sub_path]
+            type_adm_1_list = []
+            type_adm_2_list = []
+            type_adm_3_list = []
+            type_adm_4_list = []
             for i in temp_list:
                 with open(i) as f:
                     data = json.load(f)
-                type_adm_1_list = []
-                type_adm_2_list = []
-                type_adm_3_list = []
-                type_adm_4_list = []
                 if i == province_path:
                     for m in data['features']:
                         type_adm_1 = m['properties']['ENGTYPE_1']
@@ -159,7 +158,64 @@ for file in os.listdir():
         data = json.load(f)
         
     n = ''
+    # global information
     
+    # admin level 2
+    new_names_adm2 = ''
+    if len(type_adm_2_list) > 5: 
+        for i in type_adm_2_list:
+            if i == 'District' or i =='County' or i == 'Metropolitan Borough' or i == 'District Council' or i == 'Borough' or i == 'Shire' or i == 'Municipality' or i == 'Region' or i == 'Territory' or i == 'Districts|Municipals' or i == 'Sector' or i == 'Subregion':
+                if not new_names_adm2:
+                    new_names_adm2 = i
+                else:
+                    new_names_adm2 = new_names_adm2 + '/' + i
+    elif type(type_adm_2_list) == list and len(type_adm_2_list) <= 5:
+        if len(type_adm_2_list) == 1:
+            new_names = type_adm_2_list[0]
+        else:
+            for i in type_adm_2_list:
+                if not new_names_adm2:
+                    new_names_adm2 = i
+                else:
+                    new_names_adm2 = new_names_adm2 + '/' + i
+                    
+    # admin level 3
+    new_names_adm3 = ''
+    if len(type_adm_3_list) > 5: 
+        for i in type_adm_3_list:
+            if i == 'Municipality' or i =='Region' or i == 'Unitary' or i == 'Unitary district' or i == 'Metropolitan Borough' or i == 'Unitary District' or i == 'Sub County' or i =='Commune' or i == 'Division' or i == 'Municipality (urban)' or i == 'Municipality (rural)' or i == 'City County' or i == 'Administrative District' or i == 'Town' or i == 'Village' or i == 'Census Division' or i == 'District Municipality':
+                if not new_names_adm3:
+                    new_names_adm3 = i
+                else:
+                    new_names_adm3 = new_names_adm3 + '/' + i
+    elif type(type_adm_3_list) == list and len(type_adm_3_list) <= 5:
+        if len(type_adm_3_list) == 1:
+            new_names = type_adm_3_list[0]
+        else:
+            for i in type_adm_3_list:
+                if not new_names_adm3:
+                    new_names_adm3 = i
+                else:
+                    new_names_adm3 = new_names_adm3 + '/' + i
+    
+    # admin level 4
+    new_names_adm4 = ''
+    if len(type_adm_4_list) > 5: 
+        for i in type_adm_4_list:
+            if i == 'Municipality' or i =='Region' or i == 'Unitary' or i == 'Unitary district' or i == 'Metropolitan Borough' or i == 'Unitary District' or i == 'Sub County' or i =='Commune' or i == 'Division' or i == 'Municipality (urban)' or i == 'Municipality (rural)' or i == 'City County' or i == 'Administrative District' or i == 'Town' or i == 'Village' or i == 'Census Division' or i == 'District Municipality':
+                if not new_names_adm4:
+                    new_names_adm4 = i
+                else:
+                    new_names_adm4 = new_names_adm4 + '/' + i
+    elif type(type_adm_3_list) == list and len(type_adm_3_list) <= 5:
+        if len(type_adm_3_list) == 1:
+            new_names = type_adm_3_list[0]
+        else:
+            for i in type_adm_3_list:
+                if not new_names_adm3:
+                    new_names_adm3 = i
+                else:
+                    new_names_adm3 = new_names_adm3 + '/' + i
     
     # filter
     if file_count == 1:
@@ -180,9 +236,13 @@ for file in os.listdir():
                 # d = item['properties']['NAME_3']
                 country_group[n]['Adm_0'].append(n)
                 # country_group[n][b].append({'Adm_2':c,'Adm_3':d})
+        country_name = file
+        lowest_admin_level = file_count - 1
+        admin_level0_unit = 1
                 
     elif file_count == 2:
         print(file, '2 files were found')
+        admin_level_type = []
         for item in data['features']:
             if n:
                 b = item['properties']['NAME_1']
@@ -190,6 +250,9 @@ for file in os.listdir():
                 # d = item['properties']['NAME_3']
                 country_group[n][b].append({'Adm_1': b})
                 #country_group[n][b].append({'Adm_2':c,'Adm_3':d})
+                type_admin_level = item['properties']['ENGTYPE_1']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
             else:
                 n = item['properties']['NAME_0']
                 country_group[n] = defaultdict(list)
@@ -198,15 +261,37 @@ for file in os.listdir():
                 # d = item['properties']['NAME_3']
                 country_group[n][b].append({'Adm_1': b})
                 #country_group[n][b].append({'Adm_2':c,'Adm_3':d})
-        admin_level1_units = len(country_group[n].keys())
-        admin_level1_names = item['properties']['ENGTYPE_1']
+                type_admin_level = item['properties']['ENGTYPE_1']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
+        
+        new_names = ''
+        if len(admin_level_type) > 5: 
+            for i in admin_level_type:
+                if i == 'Kingdom' or i =='Province' or i == 'Principality' or i == 'State' or i == 'Territory':
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        elif type(admin_level_type) == list and len(admin_level_type) <= 5:
+            if len(admin_level_type) == 1:
+                new_names = admin_level_type[0]
+            else:
+                for i in admin_level_type:
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        
         country_name = file
         lowest_admin_level = file_count - 1
-        
-        
-    
+        admin_level0_unit = 1
+        admin_level1_units = len(country_group[n].keys())
+        admin_level1_names = new_names
+         
     elif file_count == 3:
         print(file, '3 files were found')
+        admin_level_type = []
         for item in data['features']:
             if n:
                 b = item['properties']['NAME_1']
@@ -214,6 +299,9 @@ for file in os.listdir():
                 #d = item['properties']['NAME_3']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c})
+                type_admin_level = item['properties']['ENGTYPE_2']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
             else:
                 n = item['properties']['NAME_0']
                 country_group[n] = defaultdict(list)
@@ -222,21 +310,55 @@ for file in os.listdir():
                 #d = item['properties']['NAME_3']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c})
-        admin_level1_units = len(country_group[n].keys())
-        admin_level1_names = 
+                type_admin_level = item['properties']['ENGTYPE_2']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
+        z_adm = country_group[file].keys()
+        adm_2_list = []
+        z = 0
+        for i in z_adm:
+            for p in country_group[file][i]:
+                if p['Adm_2'] not in adm_2_list:
+                    adm_2_list.append(p['Adm_2'])
+                    z += 1
+        
+        new_names = ''
+        if len(admin_level_type) > 5: 
+            for i in admin_level_type:
+                if i == 'District' or i =='County' or i == 'Metropolitan Borough' or i == 'District Council' or i == 'Borough' or i == 'Shire' or i == 'Municipality' or i == 'Region' or i == 'Territory' or i == 'Districts|Municipals' or i == 'Sector' or i == 'Subregion':
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        elif type(admin_level_type) == list and len(admin_level_type) <= 5:
+            if len(admin_level_type) == 1:
+                new_names = admin_level_type[0]
+            else:
+                for i in admin_level_type:
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        
         country_name = file
         lowest_admin_level = file_count - 1
-        # admin_level2_units 
-        admin_level2_names = item['properties']['ENGTYPE_2']
+        admin_level0_unit = 1
+        admin_level1_units = len(country_group[n].keys())
+        admin_level1_names = type_adm_1_list
+        admin_level2_units = len(adm_2_list)
+        admin_level2_names = new_names
                 
     elif file_count == 4:
         print(file, '4 files were found')
+        admin_level_type = []
         for item in data['features']:
             if n:
                 b = item['properties']['NAME_1']
                 c = item['properties']['NAME_2']
                 d = item['properties']['NAME_3']
-                #country_group[n][b].append(c)
+                type_admin_level = item['properties']['ENGTYPE_3']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d})
             else:
                 n = item['properties']['NAME_0']
@@ -244,11 +366,56 @@ for file in os.listdir():
                 b = item['properties']['NAME_1']
                 c = item['properties']['NAME_2']
                 d = item['properties']['NAME_3']
+                type_admin_level = item['properties']['ENGTYPE_3']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d})
                 
+        z_adm = country_group[file].keys()
+        adm_2_list = []
+        adm_3_list = []
+        z = 0
+        for i in z_adm:
+            for p in country_group[file][i]:
+                if p['Adm_2'] not in adm_2_list:
+                    adm_2_list.append(p['Adm_2'])
+                    z += 1
+                if p['Adm_3'] not in adm_3_list:
+                    adm_3_list.append(p['Adm_3'])
+                    z += 1
+        
+        new_names = ''
+        if len(admin_level_type) > 5: 
+            for i in admin_level_type:
+                if i == 'Municipality' or i =='Region' or i == 'Unitary' or i == 'Unitary district' or i == 'Metropolitan Borough' or i == 'Unitary District' or i == 'Sub County' or i =='Commune' or i == 'Division' or i == 'Municipality (urban)' or i == 'Municipality (rural)' or i == 'City County' or i == 'Administrative District' or i == 'Town' or i == 'Village' or i == 'Census Division' or i == 'District Municipality':
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        elif type(admin_level_type) == list and len(admin_level_type) <= 5:
+            if len(admin_level_type) == 1:
+                new_names = admin_level_type[0]
+            else:
+                for i in admin_level_type:
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        
+        country_name = file
+        lowest_admin_level = file_count - 1
+        admin_level0_unit = 1
+        admin_level1_units = len(country_group[n].keys())
+        admin_level1_names = type_adm_1_list
+        admin_level2_units = len(adm_2_list)
+        admin_level2_names = type_adm_2_list
+        admin_level3_units = len(adm_3_list)
+        admin_level3_names = new_names
+        
     elif file_count == 5:
         print(file, '5 files were found')
+        admin_level_type = []
         for item in data['features']:
             if n:
                 b = item['properties']['NAME_1']
@@ -257,6 +424,9 @@ for file in os.listdir():
                 e = item['properties']['NAME_4']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d, 'Adm_4':e})
+                type_admin_level = item['properties']['ENGTYPE_4']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
             else:
                 n = item['properties']['NAME_0']
                 country_group[n] = defaultdict(list)
@@ -266,9 +436,59 @@ for file in os.listdir():
                 e = item['properties']['NAME_4']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d, 'Adm_4':e})
-                
+                type_admin_level = item['properties']['ENGTYPE_4']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
+        y_adm = country_group[file].keys()
+        adm_2_list = []
+        adm_3_list = []
+        adm_4_list = []
+        z = 0
+        for i in y_adm:
+            for p in country_group[file][i]:
+                if p['Adm_2'] not in adm_2_list:
+                    adm_2_list.append(p['Adm_2'])
+                    z += 1
+                if p['Adm_3'] not in adm_3_list:
+                    adm_3_list.append(p['Adm_3'])
+                    z += 1
+                if p['Adm_4'] not in adm_4_list:
+                    adm_4_list.append(p['Adm_4'])
+                    z += 1
+        
+        new_names = ''
+        if len(admin_level_type) > 5: 
+            for i in admin_level_type:
+                if i == 'Commune' or i =='Municipality' or i == 'Town' or i == 'Sovereign territories' or i == 'Sovereign territory':
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        elif type(admin_level_type) == list and len(admin_level_type) <= 5:
+            if len(admin_level_type) == 1:
+                new_names = admin_level_type[0]
+            else:
+                for i in admin_level_type:
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        
+        country_name = file
+        lowest_admin_level = file_count - 1
+        admin_level0_unit = 1
+        admin_level1_units = len(country_group[n].keys())
+        admin_level1_names = type_adm_1_list
+        admin_level2_units = len(adm_2_list)
+        admin_level2_names = type_adm_2_list
+        admin_level3_units = len(adm_3_list)
+        admin_level3_names = type_adm_3_list
+        admin_level4_units = len(adm_4_list)
+        admin_level4_names = new_names
+        
     elif file_count == 6:
         print(file, '6 files were found')
+        admin_level_type = []
         for item in data['features']:
             if n:
                 b = item['properties']['NAME_1']
@@ -278,6 +498,9 @@ for file in os.listdir():
                 f = item['properties']['NAME_5']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d, 'Adm_4':e, 'Adm_5':f})
+                type_admin_level = item['properties']['ENGTYPE_5']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
             else:
                 n = item['properties']['NAME_0']
                 country_group[n] = defaultdict(list)
@@ -288,8 +511,69 @@ for file in os.listdir():
                 f = item['properties']['NAME_5']
                 #country_group[n][b].append(c)
                 country_group[n][b].append({'Adm_2':c,'Adm_3':d, 'Adm_4':e, 'Adm_5':f})
-
-
+                type_admin_level = item['properties']['ENGTYPE_5']
+                if type_admin_level not in admin_level_type:
+                    admin_level_type.append(type_admin_level)
+        x_adm = country_group[file].keys()
+        adm_2_list = []
+        adm_3_list = []
+        adm_4_list = []
+        adm_5_list = []
+        z = 0
+        for i in x_adm:
+            for p in country_group[file][i]:
+                if p['Adm_2'] not in adm_2_list:
+                    adm_2_list.append(p['Adm_2'])
+                    z += 1
+                if p['Adm_3'] not in adm_3_list:
+                    adm_3_list.append(p['Adm_3'])
+                    z += 1
+                if p['Adm_4'] not in adm_4_list:
+                    adm_4_list.append(p['Adm_4'])
+                    z += 1
+                if p['Adm_5'] not in adm_5_list:
+                    adm_5_list.append(p['Adm_5'])
+                    z += 1
+        
+        new_names = ''
+        if len(admin_level_type) > 5: 
+            for i in admin_level_type:
+                if i == 'Commune' or i =='Waterbody':
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        elif type(admin_level_type) == list and len(admin_level_type) <= 5:
+            if len(admin_level_type) == 1:
+                new_names = admin_level_type[0]
+            else:
+                for i in admin_level_type:
+                    if not new_names:
+                        new_names = i
+                    else:
+                        new_names = new_names + '/' + i
+        
+        country_name = file
+        lowest_admin_level = file_count - 1
+        admin_level0_unit = 1
+        admin_level1_units = len(country_group[n].keys())
+        admin_level1_names = type_adm_1_list
+        admin_level2_units = len(adm_2_list)
+        admin_level2_names = type_adm_2_list
+        admin_level3_units = len(adm_3_list)
+        admin_level3_names = type_adm_3_list
+        admin_level4_units = len(adm_4_list)
+        admin_level4_names = type_adm_4_list
+        admin_level5_units = len(adm_5_list)
+        admin_level5_names = new_names
+        
+    print('\n')
+    print(file)
+    print(admin_level1_names)
+    print(admin_level2_names)
+    print(admin_level3_names)
+    print(admin_level4_names)
+    print(admin_level5_names)
 # Reference Code
 # n = ''
 # country_group = {}
@@ -340,3 +624,31 @@ for file in os.listdir():
 #                 type_adm_2 = m['properties']['ENGTYPE_2']
 #                 if type_adm_2 not in type_adm_2_list:
 #                     type_adm_2_list.append(type_adm_2)  
+
+# if len(admin_level2_names) > 5:
+#     new_names = ''
+#     for i in admin_level2_names:
+#         if i == 'District' or i =='County' or i == 'Metropolitan Borough':
+#             if not new_names:
+#                 new_names = i
+#             else:
+#                 new_names = new_names + '/' + i
+# elif type(admin_level2_names) == list:
+    
+# new_names = ''
+# if len(admin_level1_names) > 5: 
+#     for i in admin_level1_names:
+#         if i == 'District' or i =='County' or i == 'Metropolitan Borough':
+#             if not new_names:
+#                 new_names = i
+#             else:
+#                 new_names = new_names + '/' + i
+# elif type(admin_level1_names) == list and len(admin_level1_names) <= 5:
+#     if len(admin_level1_names) == 1:
+#         new_names = admin_level1_names[0]
+#     else:
+#         for i in admin_level1_names:
+#             if not new_names:
+#                 new_names = i
+#             else:
+#                 new_names = new_names + '/' + i
