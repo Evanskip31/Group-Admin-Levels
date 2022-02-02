@@ -5,7 +5,7 @@ The major task in this project was `web scraping`, `automation` and `classifying
 it becomes very easy and automated.
 Our data resource is [GADM website](https://gadm.org/download_country.html), that contains all the countries' GIS files.
 
-For this project, the required libraries include: `requests`, `json`, `beautifulsoup`, `defaultdict` etc. To install them, use `pip install`:
+For this project, the required libraries include: `requests`, `json`, `beautifulsoup (not very much necessary, but can still be used)`, `defaultdict` etc. To install them, use `pip install`:
 ```
 pip install beatifulsoup4
 pip install requests
